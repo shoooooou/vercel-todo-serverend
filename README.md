@@ -14,7 +14,7 @@ A RESTful API for managing TODO items built with NestJS and Prisma.
 
 - NestJS - Node.jsフレームワーク
 - Prisma - ORMツール
-- PostgreSQL - データベース
+- PostgreSQL / SQLite - データベース（本番環境ではPostgreSQL推奨）
 - TypeScript - プログラミング言語
 - class-validator - バリデーション
 
@@ -23,8 +23,10 @@ A RESTful API for managing TODO items built with NestJS and Prisma.
 ### 前提条件 (Prerequisites)
 
 - Node.js (v18以上)
-- PostgreSQL (v12以上)
+- PostgreSQL (v12以上) - 本番環境の場合
 - npm または yarn
+
+**注意**: デフォルトではSQLiteを使用して開発しています。本番環境ではPostgreSQLを推奨します。
 
 ### インストール (Installation)
 
@@ -42,7 +44,9 @@ npm install
 3. 環境変数を設定:
 ```bash
 cp .env.example .env
-# .envファイルを編集してデータベース接続情報を設定
+# デフォルトではSQLiteを使用 (file:./dev.db)
+# PostgreSQLを使用する場合は、DATABASE_URLを変更してください
+# 例: DATABASE_URL="postgresql://user:password@localhost:5432/todoapp?schema=public"
 ```
 
 4. Prismaマイグレーションを実行:
