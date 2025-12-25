@@ -64,6 +64,8 @@ npm run start:dev
 
 ## API エンドポイント (API Endpoints)
 
+詳細なAPI使用例は [API_EXAMPLES.md](./API_EXAMPLES.md) を参照してください。
+
 ### TODO項目を作成
 ```
 POST /todos
