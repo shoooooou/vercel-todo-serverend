@@ -15,5 +15,16 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
 
+  mycli:
+    image: python:3.10-slim
+    depends_on:
+      - mysql
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+    command: sh -c "pip install mycli && mycli -h mysql -u ${DB_USER} -p${DB_PASSWORD} ${DB_NAME}"
+
 volumes:
   mysql_data:
