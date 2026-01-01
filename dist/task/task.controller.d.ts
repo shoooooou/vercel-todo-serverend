@@ -4,20 +4,20 @@ export declare class TaskController {
     private readonly taskService;
     constructor(taskService: TaskService);
     create(createTaskDto: CreateTaskDto): Promise<{
-        name: string;
-        id: number;
         user_id: number;
-        status: import(".prisma/client").$Enums.TaskStatus;
+        name: string;
         due_date: Date;
+        status: import(".prisma/client").$Enums.TaskStatus;
+        id: number;
         createdAt: Date;
         updatedAt: Date;
     }>;
     fetchTask(userId: number): Promise<{
-        name: string;
-        id: number;
         user_id: number;
-        status: import(".prisma/client").$Enums.TaskStatus;
+        name: string;
         due_date: Date;
+        status: import(".prisma/client").$Enums.TaskStatus;
+        id: number;
         createdAt: Date;
         updatedAt: Date;
     }[]>;
