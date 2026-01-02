@@ -1,0 +1,66 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  email         String   @unique
+  password_hash String
+  name          String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now())
+  tasks         Task[]
+
+  @@map("users")
+}
+
+enum TaskStatus {
+  PENDING     @map("pending")
+  IN_PROGRESS @map("in_progress")
+  COMPLETED   @map("completed")
+}
+
+model Task {
+  id        Int        @id @default(autoincrement())
+  user_id   Int
+  name      String
+  status    TaskStatus @default(PENDING)
+  due_date  DateTime
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @default(now())
+
+  user User @relation(fields: [user_id], references: [id])
+
+  @@map("tasks")
+}
+
+model Habit {
+  id                   Int        @id @default(autoincrement())
+  user_id              Int
+  name                 String
+  target_days_per_week String
+  createdAt            DateTime   @default(now())
+  updatedAt            DateTime   @default(now())
+  habit_logs           HabitLog[]
+
+  @@map("habits")
+}
+
+model HabitLog {
+  id          Int      @id @default(autoincrement())
+  habit_id    Int
+  completedAt DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+  habit       Habit    @relation(fields: [habit_id], references: [id])
+
+  @@map("habit_logs")
+}
